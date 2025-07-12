@@ -1,0 +1,81 @@
+[project]
+name = "wsdmcup_2024"
+version = "0.1.0"
+description = "WSDM Cup 2024 Project"
+requires-python = "==3.10.14" # Compatible with your Python 3.10.14
+
+
+dependencies = [
+    # PyTorch libraries for CUDA 12.1
+    "torch==2.3.1",
+    "torchvision==0.18.1",
+    "torchaudio==2.3.1",
+
+    # Packages from requirements.txt
+    "pandas==2.2.2",
+    "numpy==1.26.4",
+    "scikit-learn==1.4.2",
+    "transformers==4.43.1",
+    "deepspeed==0.14.0",
+    "bitsandbytes==0.42.0",
+    "peft==0.11.1",
+    "accelerate",
+    "auto_gptq==0.7.1",
+    "optimum>=1.21.2",
+    "tqdm",
+
+    # Other useful libraries from template
+    "einops",
+    "jaxtyping",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0.0",
+    "ruff>=0.4.0",
+]
+
+
+
+[[tool.uv.index]]
+name = "pytorch-cu121"
+url = "https://download.pytorch.org/whl/cu121" # Official PyTorch index for CUDA 12.1
+explicit = true # Ensures 'uv' only uses this index for the specified packages
+
+# (4b) Routes PyTorch packages to the correct index for Linux/Windows.
+[tool.uv.sources]
+torch = [
+    { index = "pytorch-cu121", marker = "sys_platform == 'linux' or sys_platform == 'win32'" }
+]
+torchvision = [
+    { index = "pytorch-cu121", marker = "sys_platform == 'linux' or sys_platform == 'win32'" }
+]
+torchaudio = [
+    { index = "pytorch-cu121", marker = "sys_platform == 'linux' or sys_platform == 'win32'" }
+]
+
+
+[tool.uv.pip]
+index-url = "https://pypi.tuna.tsinghua.edu.cn/simple"
+
+
+[tool.pytest.ini_options]
+log_cli = true
+log_cli_level = "WARNING"
+addopts = "-s"
+
+
+[tool.ruff]
+line-length = 120
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP"] # Enable Flake8, isort, and PyUpgrade rules
+ignore = []
+
+[tool.ruff.format]
+quote-style = "double"
+
+
+[tool.setuptools.packages.find]
+# Make sure this matches your source code's folder name
+include = ["wsdmcup_2024"]

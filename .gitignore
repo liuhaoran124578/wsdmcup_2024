@@ -1,0 +1,5 @@
+**/__pycache__/
+.venv/
+wsdmcup_2024.egg-info/
+.ipynb_checkpoints/
+.idea/
